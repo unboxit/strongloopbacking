@@ -4,15 +4,70 @@
     "connector": "memory"
   },
   "mongoDBDs": {
+    "host": "localhost",
+    "port": 27017,
+    "database": "SelfRegistration",
+    "username": "",
+    "password": "",
     "name": "mongoDBDs",
     "connector": "mongodb"
   },
   "geo": {
     "name": "geo",
-    "connector": "rest"
+    "connector": "rest",
+    "operations": [
+      {
+        "template": {
+          "method": "GET",
+          "url": "http://maps.googleapis.com/maps/api/geocode/{format=json}",
+          "headers": {
+            "accepts": "application/json",
+            "content-type": "application/json"
+          },
+          "query": {
+            "address": "{street},{city},{zipcode}",
+            "sensor": "{sensor=false}"
+          },
+          "responsePath": "$.results[0].geometry.location"
+        },
+        "functions": {
+          "geocode": [
+            "street",
+            "city",
+            "zipcode"
+          ]
+        }
+      }
+    ]
   },
   "openweathermap": {
     "name": "openweathermap",
-    "connector": "rest"
+    "connector": "rest",
+    "debug": true,
+    "operations": [
+      {
+        "template": {
+          "method": "GET",
+          "url": "http://api.openweathermap.org/data/2.5/forecast/daily",
+          "headers": {
+            "accepts": "application/json",
+            "content-type": "application/json"
+          },
+          "query": {
+            "lat": "{lat}",
+            "lon": "{lon}",
+            "units": "{units}"
+          },
+          "responsePath": "$.list"
+        },
+        "functions": {
+          "getweather": [
+            "lat",
+            "lon",
+            "units"
+          ]
+        }
+      }
+    ]
   }
 }
