@@ -2,5 +2,17 @@
   "db": {
     "name": "db",
     "connector": "memory"
+  },
+  "mongoDBDs": {
+    "name": "mongoDBDs",
+    "connector": "mongodb"
+  },
+  "geo": {
+    "name": "geo",
+    "connector": "rest"
+  },
+  "openweathermap": {
+    "name": "openweathermap",
+    "connector": "rest"
   }
 }
